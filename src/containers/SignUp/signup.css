@@ -1,0 +1,8 @@
+.signup__body > input {
+  padding: 5px;
+}
+
+.signup__body >  div > .country__code {
+  width: 3.5rem;
+  margin-right: 5px;
+}

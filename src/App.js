@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
+import React from 'react'
 
-function App() {
+import Home from './containers/Home/Home'
+import Signup from './containers/SignUp/Signup'
+import ValidateOTP from './containers/ValidateOTP/ValidateOTP'
+import Dashboard from './containers/Dashboard/Dashboard'
+import { Provider } from 'react-redux'
+import configureStore from './store'
+import UserDetails from './containers/UserDetails'
+const store = configureStore()
+function App () {
+  let isLoggedIn = localStorage.getItem('qube_token')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/login' component={Signup} />
+          <Route exact path='/user-details' component={UserDetails} />
+          <Route exact path='/validate' component={ValidateOTP} />
+          <Route
+            exact
+            path='/dashboard'
+            component={props =>
+              isLoggedIn ? <Dashboard {...props} /> : <Redirect to='/' />
+            }
+          />
+        </Switch>
+      </Router>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
