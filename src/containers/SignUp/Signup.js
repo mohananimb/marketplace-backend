@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout/Layout'
 import './signup.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,12 +10,6 @@ function Signup (props) {
   const otpState = useSelector(state => state.sendPin)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (otpState.success) {
-      props.history.push('/validate')
-    }
-  }, [otpState, props.history])
-
   const sendOTP = async () => {
     const match = state.phone.match(/^[0-9]{10}$/g)
 
@@ -24,6 +18,7 @@ function Signup (props) {
         type: otp.loading,
         number: state.phone
       })
+      props.history.push('/validate')
     } else {
       setPhoneErr('Enter valid phone')
     }

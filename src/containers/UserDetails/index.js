@@ -20,17 +20,19 @@ function UserDetails ({ history }) {
   }
 
   useEffect(() => {
+    if (!phoneState.phone) {
+      window.location.href = '/'
+    }
     if (state.success) {
       if (state.data.message === 'This email is already registered.') {
         alert('This email is already taken.')
       } else if (state.data.message === 'User created successfully.') {
         alert('Signed up successfully, you can login now.')
-        history.push('/login')
+
+        window.location.href = '/login'
       }
-    } else {
-      window.location.href = '/'
     }
-  }, [state, history])
+  }, [state, history, phoneState])
   return (
     <Layout>
       <div className='signup__body d-flex flex-column'>

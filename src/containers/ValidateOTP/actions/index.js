@@ -8,7 +8,6 @@ export const setOTP = data => {
 }
 
 export const sendOTP = payload => {
-  console.log("AC", payload);
   return {
     type: verifyOTP.loading,
     payload

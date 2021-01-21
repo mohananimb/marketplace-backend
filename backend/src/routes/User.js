@@ -5,7 +5,6 @@ const router = new express.Router()
 const User = require('../models/User')
 
 router.get('/generateOTP', async (req, res) => {
-  console.log(req.query)
   try {
     const data = await generate(req.query.mobile)
     return res.status(200).send(data)
@@ -27,6 +26,7 @@ router.get('/verify', async (req, res) => {
         const { _id, name, email, mobile } = user
         return res.send({
           message: 'Logged in successfully.',
+          verification,
           user: { _id, name, email, mobile, token }
         })
       }
@@ -61,7 +61,7 @@ router.post('/sign-up', async (req, res) => {
     const user = await new User({
       email,
       name,
-      mobile: `+${mobile}`
+      mobile: `+91${mobile}`
     })
     await user.save()
     return res.status(201).send({

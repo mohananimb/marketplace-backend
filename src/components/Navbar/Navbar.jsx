@@ -1,6 +1,11 @@
 import React from 'react'
 
 function Navbar () {
+  const handleLogout = () => {
+    localStorage.clear()
+    window.location.href = '/'
+    // history.push('/')
+  }
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container-fluid'>
@@ -15,6 +20,10 @@ function Navbar () {
           aria-label='Toggle navigation'
         >
           <span className='navbar-toggler-icon' />
+        </button>
+
+        <button onClick={handleLogout} className='float-right btn text-white'>
+          Logout
         </button>
       </div>
     </nav>

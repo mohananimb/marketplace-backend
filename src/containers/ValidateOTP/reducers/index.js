@@ -23,7 +23,6 @@ export const setOTP = (state = initialOTPState, action) => {
 }
 
 export const sendOTP = (state = intialSendOTPState, action) => {
-  console.log('AC', action)
   switch (action.type) {
     case verifyOTP.loading:
       return {
@@ -43,6 +42,14 @@ export const sendOTP = (state = intialSendOTPState, action) => {
         loading: false,
         success: false,
         error: action.error
+      }
+
+    case 'DESTROY':
+      return {
+        loading: false,
+        success: false,
+        error: '',
+        data: []
       }
 
     default:

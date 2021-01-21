@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import Layout from '../../components/Layout/Layout'
 import { otp, verifyOTP } from './constants'
 function ValidateOTP ({ history }) {
@@ -11,21 +10,30 @@ function ValidateOTP ({ history }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (state.success) {
-      if (state.data.verification.valid) {
-        if (state.data.message === 'User is not registered.') {
-          alert('This user is not registered. Please Registered first.')
-          history.push('/user-details')
-        } else {
-          history.push('/dashboard')
-        }
-      } else {
-        alert('Invalid otp')
-      }
-    } else {
+    if (!phoneState.phone) {
       window.location.href = '/'
     }
-  }, [state.success, history, state.data])
+    if (state.success) {
+      if (state.data.message === 'Invalid OTP.') {
+        alert(state.data.message)
+        dispatch({
+          type: 'DESTROY'
+        })
+      } else {
+        if (state.data.verification.valid) {
+          if (state.data.message === 'User is not registered.') {
+            alert('This user is not registered. Please Registered first.')
+
+            history.push('/user-details')
+          } else {
+            localStorage.setItem('qube_token', state.data.user.token)
+            alert('login success')
+            window.location.href = '/dashboard'
+          }
+        }
+      }
+    }
+  }, [state, history, phoneState, dispatch])
 
   const ValidateOtp = async () => {
     const match = otpState.otp.match(/^[0-9]{6}$/g)
@@ -34,6 +42,7 @@ function ValidateOTP ({ history }) {
         type: verifyOTP.loading,
         payload: {
           phone: phoneState.phone,
+          // phone:"8793466424",
           code: otpState.otp
         }
       })

@@ -21,11 +21,49 @@ function App () {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/signup' component={Signup} />
-          <Route exact path='/login' component={Signup} />
-          <Route exact path='/user-details' component={UserDetails} />
-          <Route exact path='/validate' component={ValidateOTP} />
+          {/* <Route exact path='/' component={Home} /> */}
+          <Route
+            exact
+            path='/'
+            component={props =>
+              isLoggedIn ? <Redirect to='/dashboard' /> : <Home {...props} />
+            }
+          />
+          <Route
+            exact
+            path='/signup'
+            component={props =>
+              isLoggedIn ? <Redirect to='/dashboard' /> : <Signup {...props} />
+            }
+          />
+          {/* <Route exact path='/signup' component={Signup} /> */}
+          <Route
+            exact
+            path='/login'
+            component={props =>
+              isLoggedIn ? <Redirect to='/dashboard' /> : <Signup {...props} />
+            }
+          />
+          {/* <Route exact path='/login' component={Signup} /> */}
+
+          <Route
+            exact
+            path='/user-details'
+            component={props =>
+              isLoggedIn ? <Redirect to='/dashboard' /> : <UserDetails {...props}/>
+            }
+          />
+
+          {/* <Route exact path='/user-details' component={UserDetails} /> */}
+
+          <Route
+            exact
+            path='/validate'
+            component={props =>
+              isLoggedIn ? <Redirect to='/dashboard' /> : <ValidateOTP {...props}/>
+            }
+          />
+          {/* <Route exact path='/validate' component={ValidateOTP} /> */}
           <Route
             exact
             path='/dashboard'

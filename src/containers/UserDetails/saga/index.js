@@ -7,7 +7,6 @@ export function * handleUser (data) {
     const info = yield call(signup, data)
     yield put(success(info))
   } catch (error) {
-    console.log("SERR", error);
     yield put(err(error))
   }
 }
