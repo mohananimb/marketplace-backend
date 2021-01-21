@@ -5,7 +5,7 @@
 
 ### Go to backend directory
 Do npm install to install the dependencies.
-Hit npm run dev commant. 
+Hit npm run dev command.
 It will start backend server.
 
 ### Get back to the root directory 
