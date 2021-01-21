@@ -1,5 +1,6 @@
 # Getting Started with Assignment task.
 
+## Clone Project on your local machine
 
 ## Available Scripts
 
